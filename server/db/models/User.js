@@ -1,4 +1,5 @@
 /* eslint no-param-reassign: 'off' */
+/* eslint no-console: 'off' */
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
