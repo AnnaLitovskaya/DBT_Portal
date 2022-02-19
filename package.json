@@ -1,0 +1,69 @@
+{
+  "name": "dbt_portal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server/port",
+    "start:dev": "npm run start-server & npm run build:dev",
+    "start-server": "nodemon ./server/port --ignore public/ --ignore client/",
+    "build:dev": "npm run build -- --watch --mode=development",
+    "build": "webpack",
+    "test": "jest --detectOpenHandles",
+    "test:dev": "npm run test -- --watch",
+    "lint": "./node_modules/.bin/eslint $(pwd)/. --fix",
+    "format:client": "prettier --write --single-quote --semi \"client/**/*.{js,jsx}\"",
+    "format:server": "prettier --write --single-quote --semi \"server/**/*.js\"",
+    "format": "npm run format:server && npm run format:client",
+    "prepare": "npx husky install && npx husky-init"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnnaLitovskaya/DBT_Portal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnnaLitovskaya/DBT_Portal/issues"
+  },
+  "homepage": "https://github.com/AnnaLitovskaya/DBT_Portal#readme",
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.3.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.0",
+    "jest": "^27.4.7",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "prettier-eslint": "^13.0.0",
+    "prettier-eslint-cli": "^5.0.1",
+    "supertest": "^6.2.0"
+  },
+  "dependencies": {
+    "css-loader": "^6.5.1",
+    "express": "^4.17.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
+    "redux": "^4.1.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.1",
+    "sequelize": "^6.12.5",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
