@@ -1,29 +1,56 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
+import { loginUser } from '../../store/storeComponents/loginUser';
 
-function SignIn() {
+function SignIn(props) {
+  const [loginValues, setLoginValues] = useState({
+    email: '',
+    password: '',
+  });
+
+  const submitUser = async () => {
+    const login = await props.loginUser(loginValues);
+    if (login) props.history.push('/');
+  };
+
   return (
     <Form id="signin-form-container">
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          onChange={(e) => {
+            setLoginValues({ ...loginValues, email: e.target.value });
+          }}
+        />
       </Form.Group>
-
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          onChange={(e) => {
+            setLoginValues({ ...loginValues, password: e.target.value });
+          }}
+        />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="button" onClick={submitUser}>
         Submit
       </Button>
     </Form>
   );
 }
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loginUser: (user) => dispatch(loginUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

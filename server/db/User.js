@@ -1,8 +1,9 @@
 /* eslint no-param-reassign: 'off' */
 /* eslint no-console: 'off' */
 
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const { DataTypes } = require('sequelize');
 const db = require('./index');
@@ -42,36 +43,37 @@ User.addHook('beforeCreate', async (user) => {
   }
 });
 
-// User.byToken = async (token) => {
-//   try {
-//     const { userId } = await jwt.verify(token, process.env.JWT);
-//     const user = await User.findOne({
-//       where: {
-//         id: userId,
-//       },
-//     });
-//     if (user) return user;
-//     return 'JsonWebTokenError';
-//   } catch (ex) {
-//     console.log(ex.name);
-//     return ex.name;
-//   }
-// };
+// Gets user from token
+User.byToken = async (token) => {
+  try {
+    const { userId } = await jwt.verify(token, process.env.JWT);
+    let user = await User.findOne({
+      where: {
+        id: userId,
+      },
+    });
+    user = user.dataValues;
+    if (user) return user;
+    return 'JsonWebTokenError';
+  } catch (ex) {
+    console.log(ex.name);
+    return ex.name;
+  }
+};
 
-// User.authenticate = async ({ email, password }) => {
-//   if (!email) return 'email required';
-//   if (!password) return 'password required';
-
-//   const user = await User.findOne({
-//     where: {
-//       email,
-//     },
-//   });
-//   if (!user) return 'email not found';
-//   if (user && (await bcrypt.compare(password, user.password))) {
-//     return jwt.sign({ userId: user.id }, process.env.JWT);
-//   }
-//   return 'invalid password';
-// };
+// Returns token on login
+User.authenticate = async ({ email, password }) => {
+  let user = await User.findOne({
+    where: {
+      email,
+    },
+  });
+  if (!user) return 'email not found';
+  user = user.dataValues;
+  if (user && (await bcrypt.compare(password, user.password))) {
+    return jwt.sign({ userId: user.id }, process.env.JWT);
+  }
+  return 'invalid password';
+};
 
 module.exports = User;
