@@ -4,7 +4,7 @@ const LOGOUT_USER = 'LOGOUT USER';
 const _logout = () => ({ type: LOGOUT_USER });
 
 const logout = () => {
-  window.localStorage.removeItem('userToken');
+  window.localStorage.removeItem('token');
   return (dispatch) => {
     dispatch(_logout());
   };

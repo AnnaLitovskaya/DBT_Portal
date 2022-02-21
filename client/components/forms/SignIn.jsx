@@ -39,18 +39,14 @@ function SignIn(props) {
         />
       </Form.Group>
       <Button variant="primary" type="button" onClick={submitUser}>
-        Submit
+        Log In
       </Button>
     </Form>
   );
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   loginUser: (user) => dispatch(loginUser(user)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);

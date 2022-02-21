@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar';
 import SignIn from './forms/SignIn';
+import Register from './forms/Register';
 import { loginUser } from '../store/storeComponents/loginUser';
 
 function Home() {
@@ -30,6 +31,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/signin" caseSensitive={false} component={SignIn} />
+        <Route path="/register" caseSensitive={false} component={Register} />
       </Switch>
     </Router>
   );
