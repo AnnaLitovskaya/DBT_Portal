@@ -6,6 +6,7 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar';
 import SignIn from './forms/SignIn';
 import Register from './forms/Register';
+import Portal from './portal/portal';
 import { loginUser } from '../store/storeComponents/loginUser';
 
 function Home() {
@@ -32,6 +33,7 @@ function App(props) {
         <Route exact path="/" component={Home} />
         <Route path="/signin" caseSensitive={false} component={SignIn} />
         <Route path="/register" caseSensitive={false} component={Register} />
+        <Route path="/api/portal" caseSensitive={false} component={Portal} />
       </Switch>
     </Router>
   );

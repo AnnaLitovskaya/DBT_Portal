@@ -7,6 +7,11 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      window.socket = io();
+      console.log(window.socket);
+    </script>
     <script src="/public/bundle.js" defer></script>
     <title>DBT Portal</title>
     <link rel="shortcut icon" href="public/images/Logo.png" />

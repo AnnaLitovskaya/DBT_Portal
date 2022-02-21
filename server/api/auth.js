@@ -1,7 +1,9 @@
 const { Router } = require('express');
 
 const router = Router();
-const User = require('../db/User');
+const {
+  models: { User },
+} = require('../db/Associations');
 
 // auth post for user. Returns token.
 router.post('/', async (req, res, next) => {

@@ -66,8 +66,11 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.1",
     "sequelize": "^6.12.5",
+    "socket.io": "^4.4.1",
     "style-loader": "^3.3.1",
+    "uuid": "^8.3.2",
     "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1"
+    "webpack-cli": "^4.9.1",
+    "ws": "^8.2.3"
   }
 }

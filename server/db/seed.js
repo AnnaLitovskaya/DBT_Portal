@@ -1,7 +1,9 @@
 /* eslint no-console : 'off' */
 
 const db = require('./index');
-const User = require('./User');
+const {
+  models: { User },
+} = require('./Associations');
 
 const syncAndSeed = async () => {
   try {

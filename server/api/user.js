@@ -2,9 +2,11 @@
 const { Router } = require('express');
 
 const router = Router();
-const User = require('../db/User');
+const {
+  models: { User },
+} = require('../db/Associations');
 
-// auth post for user. Returns token.
+// creates new user
 router.post('/', async (req, res, next) => {
   try {
     const { email, password, name, role } = req.body;

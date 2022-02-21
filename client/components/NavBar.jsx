@@ -17,7 +17,7 @@ function NavBar(props) {
         <Nav className="me-auto">
           {!user.email ? <Nav.Link href="#signin">Sign In</Nav.Link> : ''}
           {!user.email ? <Nav.Link href="#register">Register</Nav.Link> : ''}
-          {user.email ? <Nav.Link href="#groupportal">Portal</Nav.Link> : ''}
+          {user.email ? <Nav.Link href="#api/portal">Portal</Nav.Link> : ''}
           {user.email ? <Nav.Link href="#forum">Forum</Nav.Link> : ''}
           {user.email ? <Nav.Link onClick={logoutUser}>Sign Out</Nav.Link> : ''}
         </Nav>
