@@ -22,4 +22,14 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+// gets all users
+router.get('/', async (req, res, next) => {
+  try {
+    const users = User.findAll();
+    res.send(users);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
