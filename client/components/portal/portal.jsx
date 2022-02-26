@@ -1,66 +1,20 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Form, Button } from 'react-bootstrap';
-import {
-  createPortal,
-  joinPortal,
-} from '../../store/storeComponents/createPortal';
+import React, { useEffect, useState, useRef } from 'react';
 
-function Portal(props) {
-  const [portalValue, setPortalValue] = useState('');
+function Portal() {
+  const [stream, setStream] = useState(null);
+
+  const myVideo = useRef();
 
   useEffect(() => {
-    window.socket.emit('portal', portalValue);
-  });
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((currentStream) => {
+        setStream(currentStream);
+        myVideo.current.srcObject = currentStream;
+      });
+  }, []);
 
-  const create = async () => {
-    const portalAddress = await props.createPortal();
-    props.history.push(`/api/portal/${portalAddress}`);
-    setPortalValue(portalAddress);
-    await props.joinPortal(portalAddress);
-  };
-
-  return (
-    <Form id="signin-form-container">
-      <div key="inline-checkbox" className="mb-3">
-        <Form.Check
-          inline
-          label="1"
-          name="group1"
-          type="checkbox"
-          id="inline-checkbox-1"
-        />
-        <Form.Check
-          inline
-          label="2"
-          name="group1"
-          type="checkbox"
-          id="inline-checkbox-2"
-        />
-        <Form.Check
-          inline
-          disabled
-          label="3 (disabled)"
-          type="checkbox"
-          id="inline-checkbox-3"
-        />
-      </div>
-      <Button variant="primary" type="button" onClick={create}>
-        Create Portal
-      </Button>
-    </Form>
-  );
+  return <h1>myVideo</h1>;
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  createPortal: () => dispatch(createPortal()),
-  joinPortal: (uuid) => dispatch(joinPortal(uuid)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Portal);
+export default Portal;

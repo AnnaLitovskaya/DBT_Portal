@@ -14,7 +14,6 @@ const createPortal = () => async () => {
 const joinPortal = (uuid) => async () => {
   try {
     await axios.get(`/api/portal/${uuid}`);
-    // window.socket.emit('auth', uuid);
   } catch (err) {
     console.log(err);
   }

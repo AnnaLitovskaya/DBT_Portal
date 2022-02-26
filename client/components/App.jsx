@@ -3,10 +3,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { io } from 'socket.io-client';
 import NavBar from './NavBar';
 import SignIn from './forms/SignIn';
 import Register from './forms/Register';
-import Portal from './portal/portal';
+import PortalInit from './portal/PortalInit';
+import Portal from './portal/Portal';
 import { loginUser } from '../store/storeComponents/loginUser';
 
 function Home() {
@@ -20,6 +22,7 @@ function Home() {
 }
 
 function App(props) {
+  window.socket = io('/');
   useEffect(async () => {
     const token = window.localStorage.getItem('token');
     if (!props.user.email && token !== undefined) {
@@ -33,7 +36,16 @@ function App(props) {
         <Route exact path="/" component={Home} />
         <Route path="/signin" caseSensitive={false} component={SignIn} />
         <Route path="/register" caseSensitive={false} component={Register} />
-        <Route path="/api/portal" caseSensitive={false} component={Portal} />
+        <Route
+          path="/api/portal/:portalId"
+          caseSensitive={false}
+          component={Portal}
+        />
+        <Route
+          path="/api/portal"
+          caseSensitive={false}
+          component={PortalInit}
+        />
       </Switch>
     </Router>
   );

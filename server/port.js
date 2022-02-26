@@ -15,11 +15,14 @@ const init = () => {
     const server = app.listen(PORT, () =>
       console.log(`now listening to port ${PORT}`)
     );
+
     const socketServer = new io.Server(server);
     socketServer.on('connection', (socket) => {
-      socket.on('portal', (portal) => {
-        console.log(portal);
+      socket.on('join-portal', (ID) => {
+        // socket.join(portalId);
+        console.log(ID.portalId, ID.userId);
       });
+      // socket.on('action');
     });
   } catch (err) {
     console.log('error listening on port', err);
