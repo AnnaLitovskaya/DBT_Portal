@@ -11,7 +11,8 @@ function Portal() {
       .then((currentStream) => {
         setStream(currentStream);
         myVideo.current.srcObject = currentStream;
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return <h1>myVideo</h1>;

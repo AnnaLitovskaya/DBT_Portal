@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
+import Peer from 'peerjs';
 import {
   createPortal,
   joinPortal,
@@ -10,18 +11,26 @@ import {
 
 function Portal(props) {
   const [portalValue, setPortalValue] = useState('');
+  const [peerID, setPeerID] = useState('');
 
   useEffect(() => {
-    const portalId = portalValue;
-    const userId = props.user.id;
-    window.socket.emit('join-portal', { portalId, userId });
+    if (portalValue && peerID) {
+      const portalId = portalValue;
+      const userId = peerID;
+      window.socket.emit('join-portal', { portalId, userId });
+    }
   });
 
   const create = async () => {
-    const portalAddress = await props.createPortal();
-    props.history.push(`/api/portal/${portalAddress}`);
-    setPortalValue(portalAddress);
-    await props.joinPortal(portalAddress);
+    const peer = new Peer();
+    peer.on('init', (id) => {
+      window.socket.emit('join-portal', { portalValue });
+    });
+    setPeerID(peer);
+    // const portalAddress = await props.createPortal();
+    // setPortalValue(portalAddress);
+    // await props.joinPortal(portalAddress);
+    // props.history.push(`/api/portal/${portalAddress}`);
   };
 
   return (
