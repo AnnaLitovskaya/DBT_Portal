@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:room', async (req, res, next) => {
   try {
-    // socket.emit('join-room', req.params.room, 10);
+    window.socket.emit('join-room', 10, req.params.room);
     // res.render('room', { roomId: req.params.room });
   } catch (err) {
     next(err);

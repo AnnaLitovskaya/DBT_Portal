@@ -29,5 +29,3 @@ const init = () => {
   }
 };
 init();
-
-// module.exports = { server, io };

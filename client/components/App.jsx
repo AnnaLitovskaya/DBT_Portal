@@ -37,15 +37,11 @@ function App(props) {
         <Route path="/signin" caseSensitive={false} component={SignIn} />
         <Route path="/register" caseSensitive={false} component={Register} />
         <Route
-          path="/api/portal/:portalId"
+          path="/portal/:portalId"
           caseSensitive={false}
           component={Portal}
         />
-        <Route
-          path="/api/portal"
-          caseSensitive={false}
-          component={PortalInit}
-        />
+        <Route path="/portal" caseSensitive={false} component={PortalInit} />
       </Switch>
     </Router>
   );

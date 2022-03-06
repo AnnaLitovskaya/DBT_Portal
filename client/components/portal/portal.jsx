@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 function Portal() {
-  const [stream, setStream] = useState(null);
+  // const [stream, setStream] = useState(null);
 
-  const myVideo = useRef();
+  // const myVideo = useRef();
 
-  useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream);
-        myVideo.current.srcObject = currentStream;
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   navigator.mediaDevices
+  //     .getUserMedia({ video: true, audio: true })
+  //     .then((currentStream) => {
+  //       setStream(currentStream);
+  //       myVideo.current.srcObject = currentStream;
+  //     })
+  //     .catch((err) => console.log(err));
+  // });
 
   return <h1>myVideo</h1>;
 }
