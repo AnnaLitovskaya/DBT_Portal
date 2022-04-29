@@ -14,6 +14,7 @@ router.get('/:room', async (req, res, next) => {
       where: {
         roomId,
       },
+      include: ['fromUser'],
     });
     res.send(messages);
   } catch (err) {

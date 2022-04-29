@@ -11,11 +11,12 @@ function Portal(props) {
     setMessages(roomMessages);
   }, []);
 
-  console.log(messages);
   return (
     <ul>
       {messages?.map((message) => (
-        <li key={message.id}>{message.message}</li>
+        <li key={message.id}>
+          {`${message.fromUser.name} ${message.message}`}
+        </li>
       ))}
     </ul>
   );

@@ -13,6 +13,7 @@ const _getMessages = (messages) => ({ type: GET_MESSAGES, messages });
 const getMessages = (roomId) => async (dispatch) => {
   try {
     const messages = (await axios.get(`/api/message/${roomId}`)).data;
+    console.log(messages);
     dispatch(_getMessages(messages));
     return messages;
   } catch (err) {
