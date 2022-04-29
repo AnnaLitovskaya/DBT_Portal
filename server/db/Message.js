@@ -8,6 +8,9 @@ const Message = db.define('message', {
   toUserId: {
     type: DataTypes.INTEGER,
   },
+  fromUserId: {
+    type: DataTypes.INTEGER,
+  },
   message: {
     type: DataTypes.TEXT,
   },

@@ -3,27 +3,19 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
 import {
   createPortal,
   joinPortal,
 } from '../../store/storeComponents/createPortal';
 
-function Portal(props) {
+function PortalInit(props) {
   const [portalValue, setPortalValue] = useState('');
 
-  useEffect(() => {
-    if (portalValue && props.user?.id) {
-      const portalId = portalValue;
-      const userId = props.user.id;
-      // window.socket.emit('join-portal', { portalId, userId });
-    }
-  });
-
   const create = async () => {
-    const portalAddress = await props.createPortal();
+    const portalAddress = uuidv4();
     setPortalValue(portalAddress);
-    await props.joinPortal(portalAddress);
-    // props.history.push(`/api/portal/${portalAddress}`);
+    props.history.push(`/portal/${portalAddress}`);
   };
 
   return (
@@ -67,4 +59,4 @@ const mapDispatchToProps = (dispatch) => ({
   joinPortal: (uuid) => dispatch(joinPortal(uuid)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Portal);
+export default connect(mapStateToProps, mapDispatchToProps)(PortalInit);

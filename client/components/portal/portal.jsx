@@ -1,21 +1,30 @@
-import React, { useEffect, useState, useRef } from 'react';
+/* eslint-disable react/destructuring-assignment */
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { getMessages } from '../../store/storeComponents/getMessages';
 
-function Portal() {
-  // const [stream, setStream] = useState(null);
+function Portal(props) {
+  const [messages, setMessages] = useState([]);
 
-  // const myVideo = useRef();
+  useEffect(async () => {
+    const roomMessages = await props.getMessages(roomId);
+  }, []);
 
-  // useEffect(() => {
-  //   navigator.mediaDevices
-  //     .getUserMedia({ video: true, audio: true })
-  //     .then((currentStream) => {
-  //       setStream(currentStream);
-  //       myVideo.current.srcObject = currentStream;
-  //     })
-  //     .catch((err) => console.log(err));
-  // });
-
-  return <h1>myVideo</h1>;
+  return (
+    <ul>
+      {props.message.map((message) => (
+        <li key={message.id}>{message.message}</li>
+      ))}
+    </ul>
+  );
 }
 
-export default Portal;
+const mapStateToProps = (state) => ({
+  message: state.message,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getMessages: (roomId) => dispatch(getMessages(roomId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Portal);
