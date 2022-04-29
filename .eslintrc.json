@@ -13,7 +13,8 @@
   },
   "plugins": ["react"],
   "rules": {
-    "comma-dangle": ["error", "only-multiline"]
+    "comma-dangle": ["error", "only-multiline"],
+    "react/prop-types": "off"
   },
   "ignorePatterns": ["webpack.config.js", "public/*"],
   "root": true

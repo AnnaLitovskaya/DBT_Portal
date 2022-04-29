@@ -2,7 +2,7 @@
 
 const db = require('./index');
 const {
-  models: { User },
+  models: { User, Message },
 } = require('./Associations');
 
 const syncAndSeed = async () => {
@@ -45,6 +45,24 @@ const syncAndSeed = async () => {
         name: 'Otto',
         password: 'test123',
         role: 'Client',
+      }),
+    ]);
+
+    await Promise.all([
+      Message.create({
+        roomId: 1,
+        fromUserId: 1,
+        message: 'Hello World!',
+      }),
+      Message.create({
+        roomId: 1,
+        fromUserId: 2,
+        message: 'This chat is lit.',
+      }),
+      Message.create({
+        roomId: 1,
+        fromUserId: 1,
+        message: 'I am sample text.',
       }),
     ]);
   } catch (ex) {

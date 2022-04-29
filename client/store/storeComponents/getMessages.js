@@ -1,5 +1,5 @@
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
 import axios from 'axios';
 
@@ -12,7 +12,7 @@ const _getMessages = (messages) => ({ type: GET_MESSAGES, messages });
 // thunk
 const getMessages = (roomId) => async (dispatch) => {
   try {
-    const messages = (await axios.get(`/api/portal/${roomId}`)).data;
+    const messages = (await axios.get(`/api/message/${roomId}`)).data;
     dispatch(_getMessages(messages));
     return messages;
   } catch (err) {

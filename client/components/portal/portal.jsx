@@ -7,12 +7,14 @@ function Portal(props) {
   const [messages, setMessages] = useState([]);
 
   useEffect(async () => {
-    const roomMessages = await props.getMessages(roomId);
+    const roomMessages = await props.getMessages(props.roomId);
+    setMessages(roomMessages);
   }, []);
 
+  console.log(messages);
   return (
     <ul>
-      {props.message.map((message) => (
+      {messages?.map((message) => (
         <li key={message.id}>{message.message}</li>
       ))}
     </ul>
