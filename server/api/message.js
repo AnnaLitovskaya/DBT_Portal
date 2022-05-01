@@ -14,7 +14,7 @@ router.get('/:room', async (req, res, next) => {
       where: {
         roomId,
       },
-      include: ['fromUser'],
+      include: ['fromUser', 'toUser'],
     });
     res.send(messages);
   } catch (err) {
@@ -27,7 +27,7 @@ router.post('/:room', async (req, res, next) => {
   try {
     const roomId = req.params.room;
     const { message, toUserId, token } = req.body;
-    const user = User.byToken(token);
+    const user = await User.byToken(token);
     const newMessage = await Message.create({
       fromUserId: user.id,
       toUserId,
