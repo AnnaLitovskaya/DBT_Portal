@@ -19,13 +19,15 @@ function Portal(props) {
     setMessages(roomMessages);
   }, []);
 
-  const send = () => {
+  const send = async () => {
     const token = localStorage.getItem('token');
     const newMessage = {
       token,
       message: messageToSend,
     };
-    props.sendMessage(roomId, newMessage);
+    await props.sendMessage(roomId, newMessage);
+    const roomMessages = await props.getMessages(roomId);
+    setMessages(roomMessages);
   };
 
   return (
