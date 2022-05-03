@@ -19,10 +19,12 @@ const init = () => {
     const socketServer = new io.Server(server);
     socketServer.on('connection', (socket) => {
       socket.on('join-portal', (ID) => {
-        // socket.join(portalId);
-        console.log(ID.portalId, ID.userId);
+        socket.join(ID);
       });
-      // socket.on('action');
+      socket.on('send', (message) => {
+        console.log(message.message.roomId);
+        socketServer.to(message.message.roomId).emit('send', message);
+      });
     });
   } catch (err) {
     console.log('error listening on port', err);

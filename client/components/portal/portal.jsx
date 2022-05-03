@@ -11,10 +11,21 @@ function Portal(props) {
   const [roomId, setRoomId] = useState('');
   const [messageToSend, setMessageToSend] = useState('');
 
+  useEffect(() => {
+    window.socket.on('send', async (message) => {
+      props.dispatch(message);
+      const roomMessages = await props.getMessages(roomId);
+      setMessages(roomMessages);
+    });
+  });
+
   useEffect(async () => {
     const addressArr = window.location.hash.split('/');
     const address = addressArr[addressArr.length - 1];
     setRoomId(address);
+
+    window.socket.emit('join-portal', address);
+
     const roomMessages = await props.getMessages(address);
     setMessages(roomMessages);
   }, []);
@@ -62,6 +73,7 @@ const mapDispatchToProps = (dispatch) => ({
   getMessages: (roomId) => dispatch(getMessages(roomId)),
   sendMessage: (roomId, messageToSend) =>
     dispatch(sendMessage(roomId, messageToSend)),
+  dispatch: (message) => dispatch(message),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Portal);
