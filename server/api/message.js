@@ -34,7 +34,13 @@ router.post('/:room', async (req, res, next) => {
       message,
       roomId,
     });
-    res.send(newMessage);
+    const returnMessage = await Message.findOne({
+      where: {
+        id: newMessage.id,
+      },
+      include: ['fromUser', 'toUser'],
+    });
+    res.send(returnMessage);
   } catch (err) {
     next(err);
   }

@@ -15,8 +15,8 @@ const sendMessage = (roomId, messageToSend) => async (dispatch) => {
     const newMessage = (
       await axios.post(`/api/message/${roomId}`, messageToSend)
     ).data;
-    dispatch(_sendMessage(newMessage));
     window.socket.emit('send', _sendMessage(newMessage));
+    dispatch(_sendMessage(newMessage));
     return newMessage;
   } catch (err) {
     console.log(err);

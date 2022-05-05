@@ -22,7 +22,6 @@ const init = () => {
         socket.join(ID);
       });
       socket.on('send', (message) => {
-        console.log(message.message.roomId);
         socketServer.to(message.message.roomId).emit('send', message);
       });
     });

@@ -11,11 +11,10 @@ function Portal(props) {
   const [roomId, setRoomId] = useState('');
   const [messageToSend, setMessageToSend] = useState('');
 
-  useEffect(() => {
-    window.socket.on('send', async (message) => {
+  useEffect(async () => {
+    window.socket.on('send', (message) => {
       props.dispatch(message);
-      const roomMessages = await props.getMessages(roomId);
-      setMessages(roomMessages);
+      setMessages([...messages, message.message]);
     });
   });
 
@@ -32,13 +31,12 @@ function Portal(props) {
 
   const send = async () => {
     const token = localStorage.getItem('token');
-    const newMessage = {
+    let newMessage = {
       token,
       message: messageToSend,
     };
-    await props.sendMessage(roomId, newMessage);
-    const roomMessages = await props.getMessages(roomId);
-    setMessages(roomMessages);
+    newMessage = await props.sendMessage(roomId, newMessage);
+    setMessages([...messages, newMessage]);
   };
 
   return (
